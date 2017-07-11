@@ -77,7 +77,7 @@ while loop_counter < argv_length
 
     # Continuous loop - This loop runs until you have 5 posts not found or it
     # likes five posts. You can obviously change these values and increase the amount.
-    while not_found < 5 && posts_clicked < 5
+    while not_found < 10 && posts_clicked < 50
 
       # set a variable for the argv to print to the command line
       # Since we already incremented the loop_counter we need to correct
@@ -87,8 +87,7 @@ while loop_counter < argv_length
       if browser.span(:class => "coreSpriteHeartOpen").exists?
         browser.span(:class => "coreSpriteHeartOpen").click
         like_counter += 1
-        puts "Posts with hastag liked: #{like_counter} with tag of"
-        puts input_tags[loop_counter]
+        puts "Posts with hastag liked: #{like_counter}"
         not_found = 0
       else
         # This is a new section where we click through a number of posts for the
