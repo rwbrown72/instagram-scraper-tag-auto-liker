@@ -56,7 +56,7 @@ while loop_counter < argv_length
 
     # visit specific hastags... This could be made more dynamic or use ARGV[2]
     browser.goto "instagram.com/explore/tags/#{input_tags[loop_counter]}/"
-    sleep(2)
+    sleep(1.5)
 
     puts "we are looking for the tag: #{input_tags[loop_counter]}"
 
