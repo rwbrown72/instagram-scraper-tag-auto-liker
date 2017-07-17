@@ -8,19 +8,23 @@
 # Super big thanks to him for the videos and github share!
 
 require 'watir' # Crawler
+require 'watir-webdriver'
 require 'pry' # Ruby REPL
 require 'rb-readline' # Ruby IRB
 require 'awesome_print' # Console output
+require 'csv' #use built in csv library to import list of tags
 
 # Use environment variable to store username and password
 username = ENV['INSTAGRAM_USERNAME']
 password = ENV['INSTAGRAM_PASSWORD']
 
-# Use ARGV to set the array of tags to loop through during the liking process
-argv_length = ARGV.length
 
-# Set variable for ARGV that makes more sense
-input_tags = ARGV
+# Set variable for CSV - tags.csv that makes more sense
+input_tags = CSV.read('test.csv')
+
+# Use ARGV to set the array of tags to loop through during the liking process
+csv_length = input_tags.length
+
 
 # initialize the like_counter variable to keep track of the loop throught the input tags
 like_counter = 0
@@ -46,19 +50,23 @@ puts "We're in."
 loop_counter = 0
 
 # Loop through all the ARGV arguments for each tag
-while loop_counter < argv_length
+while loop_counter < csv_length
 
   # Use the ARGV variable we stored the arguments in to loop through them
-  input_tags.each do
+  input_tags.each do |input_t|
 
     # Set a local variable for the loop to track when a tag isn't found
     not_found = 0
 
     # visit specific hastags... This could be made more dynamic or use ARGV[2]
-    browser.goto "instagram.com/explore/tags/#{input_tags[loop_counter]}/"
+
+    browser.goto "instagram.com/explore/tags/#{input_tags[loop_counter][0]}/"
     sleep(2.0)
 
-    puts "we are looking for the tag: #{input_tags[loop_counter]}"
+    browser.goto "instagram.com/explore/tags/#{input_t[0]}/"
+    sleep(1.5)
+
+    puts "we are looking for the tag: #{input_t}"
 
     # increment the loop counter after we login and have found
     # the first argument stored in input tags
@@ -77,12 +85,13 @@ while loop_counter < argv_length
 
     # Continuous loop - This loop runs until you have 5 posts not found or it
     # likes five posts. You can obviously change these values and increase the amount.
-    while not_found < 30 && like_counter < 250
+
+    while not_found < 10 && posts_clicked < 10
 
       # set a variable for the argv to print to the command line
       # Since we already incremented the loop_counter we need to correct
       # by subtracting one from the amount. This gives use the correct ARGV.
-      input = input_tags[loop_counter - 1]
+      input = input_t[loop_counter - 1]
 
       if browser.span(:class => "coreSpriteHeartOpen").exists?
         browser.span(:class => "coreSpriteHeartOpen").click
