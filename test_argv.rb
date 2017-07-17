@@ -1,3 +1,7 @@
+require "watir"
+
+b = Watir::Browser.new :chrome # loads watir-webdriver and opens up a Chrome browser
+
 # This is a small program to test getting inputs from ARGV and creating a loop with the array.
 
 # Set the counter variable to zero
@@ -11,3 +15,4 @@ while n < arg_length
   puts ARGV[n]
   n +=1
 end
+
