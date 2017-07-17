@@ -56,7 +56,7 @@ while loop_counter < argv_length
 
     # visit specific hastags... This could be made more dynamic or use ARGV[2]
     browser.goto "instagram.com/explore/tags/#{input_tags[loop_counter]}/"
-    sleep(1.5)
+    sleep(2.0)
 
     puts "we are looking for the tag: #{input_tags[loop_counter]}"
 
@@ -77,7 +77,7 @@ while loop_counter < argv_length
 
     # Continuous loop - This loop runs until you have 5 posts not found or it
     # likes five posts. You can obviously change these values and increase the amount.
-    while not_found < 10 && posts_clicked < 50
+    while not_found < 30 && like_counter < 250
 
       # set a variable for the argv to print to the command line
       # Since we already incremented the loop_counter we need to correct
