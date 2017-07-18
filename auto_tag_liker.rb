@@ -25,10 +25,6 @@ input_tags = CSV.read('test.csv')
 # Use ARGV to set the array of tags to loop through during the liking process
 csv_length = input_tags.length
 
-
-# initialize the like_counter variable to keep track of the loop throught the input tags
-like_counter = 0
-
 # initialize the hashtag number of likes variable to track the total number of likes
 hashtag_like = 0
 
@@ -58,15 +54,18 @@ while loop_counter < csv_length
     # Set a local variable for the loop to track when a tag isn't found
     not_found = 0
 
+    # initialize the like_counter variable to keep track of the loop throught the input tags
+    like_counter = 0
+
     # visit specific hastags... This could be made more dynamic or use ARGV[2]
 
     browser.goto "instagram.com/explore/tags/#{input_tags[loop_counter][0]}/"
-    sleep(2.0)
-
-    browser.goto "instagram.com/explore/tags/#{input_t[0]}/"
     sleep(1.5)
 
-    puts "we are looking for the tag: #{input_t}"
+
+    puts "we are looking for the tag: #{input_t[0]}"
+
+    specific_tags_liked = 0
 
     # increment the loop counter after we login and have found
     # the first argument stored in input tags
@@ -86,9 +85,9 @@ while loop_counter < csv_length
     # Continuous loop - This loop runs until you have 5 posts not found or it
     # likes five posts. You can obviously change these values and increase the amount.
 
-    while not_found < 10 && posts_clicked < 10
+    while not_found < 25 && specific_tags_liked < 50
 
-      # set a variable for the argv to print to the command line
+      # set a variable for the csv to print to the command line
       # Since we already incremented the loop_counter we need to correct
       # by subtracting one from the amount. This gives use the correct ARGV.
       input = input_t[loop_counter - 1]
@@ -96,7 +95,8 @@ while loop_counter < csv_length
       if browser.span(:class => "coreSpriteHeartOpen").exists?
         browser.span(:class => "coreSpriteHeartOpen").click
         like_counter += 1
-        puts "Posts with hastag liked: #{like_counter}"
+        specific_tags_liked += 1
+        puts "Posts with hastag of #{input_t[0]} have been liked #{like_counter} times."
         not_found = 0
       else
         # This is a new section where we click through a number of posts for the
