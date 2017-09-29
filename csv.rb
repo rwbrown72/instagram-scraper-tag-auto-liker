@@ -4,15 +4,14 @@ require 'csv' #use built in csv library to import list of tags
 tags = []
 inc = 0
 
-CSV.foreach('tags.csv') do |row|
-  puts row
+CSV.foreach('test.csv') do |row|
+
   tags[inc] = row
   puts "Before the i+=: #{inc}"
-  inc = inc + 1
+  puts  "We found #{tags[inc][0]}"
+  inc += 1
   puts "After the i+=: #{inc}"
 end
-
-puts tags.inspect
 
 
 

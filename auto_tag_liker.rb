@@ -20,7 +20,7 @@ password = ENV['INSTAGRAM_PASSWORD']
 
 
 # Set variable for CSV - tags.csv that makes more sense
-input_tags = CSV.read('test.csv')
+input_tags = CSV.read('update.csv')
 
 # Use ARGV to set the array of tags to loop through during the liking process
 csv_length = input_tags.length
@@ -38,7 +38,7 @@ browser.text_field(:name => "username").set "#{username}"
 browser.text_field(:name => "password").set "#{password}"
 
 # Click Login Button
-browser.button(:class => '_ah57t _84y62 _i46jh _rmr7s').click
+browser.button(:class => '_qv64e _gexxb _4tgw8 _njrw0').click
 sleep(2)
 puts "We're in."
 
@@ -73,8 +73,8 @@ while loop_counter < csv_length
 
 
     # click on most recent post - per https://github.com/dv1pr/Web-Scraping-Tutorial
-    if browser.div(:class=>"_8mlbc _vbtk2 _t5r8b").exists?
-      browser.div(:class=>"_8mlbc _vbtk2 _t5r8b").link.click
+    if browser.div(:class=>"_mck9w _gvoze _f2mse").exists?
+      browser.div(:class=>"_mck9w _gvoze _f2mse").link.click
     else
       ap "Something went wrong or the tag has no posts"
     end
@@ -85,7 +85,7 @@ while loop_counter < csv_length
     # Continuous loop - This loop runs until you have 5 posts not found or it
     # likes five posts. You can obviously change these values and increase the amount.
 
-    while not_found < 25 && specific_tags_liked < 50
+    while not_found < 15 && specific_tags_liked < 15
 
       # set a variable for the csv to print to the command line
       # Since we already incremented the loop_counter we need to correct
@@ -104,7 +104,7 @@ while loop_counter < csv_length
         # them while keeping track of the "Posts not found in a row".
         # I decided to make it look for a number of posts not found in a row as
         # sometimes you might have already like a post or two on your own
-        # and we don't want the program to end unsless you are seeing a large number
+        # and we don't want the program to end unless you are seeing a large number
         # of not found in a row.
         not_found += 1
         ap "This is number #{not_found} in a row we can't find."
